@@ -145,8 +145,8 @@ import net.mamoe.mirai.console.compiler.common.ResolveContext.Kind.RESTRICTED_AB
  *
  * ### 避免索引访问以提高性能
  *
- * 自 2.11 起, [MessageChain] 内部结构有性能优化. 该优化将大幅降低元素数量多的 [MessageChain] 的连接的时间复杂度.
- * 性能优化默认生效, 但若使用 [get], [subList] 等 [List] 于 [Collection] 之外的方法时则会让该优化失效 (相比 2.11 以前不会丢失性能, 只是没有优化).
+ * 自 2.12 起, [MessageChain] 内部结构有性能优化. 该优化大幅降低元素数量多的 [MessageChain] 的连接的时间复杂度.
+ * 性能优化默认生效, 但若使用 [get], [subList] 等 [List] 于 [Collection] 之外的方法时则会让该优化失效 (相比 2.12 以前不会丢失性能, 只是没有优化).
  *
  * ## 撤回和引用
  *
@@ -349,7 +349,7 @@ public sealed interface MessageChain :
 /**
  * 返回一个不含任何元素的 [MessageChain].
  *
- * @since 2.11
+ * @since 2.12
  */
 // Java: MessageUtils.emptyMessageChain()
 @Suppress("DEPRECATION")
@@ -363,7 +363,7 @@ public fun emptyMessageChain(): MessageChain = EmptyMessageChain
     "Please use emptyMessageChain()",
     replaceWith = ReplaceWith("emptyMessageChain()", "net.mamoe.mirai.message.data.emptyMessageChain")
 )
-@DeprecatedSinceMirai(warningSince = "2.11")
+@DeprecatedSinceMirai(warningSince = "2.12")
 public object EmptyMessageChain : MessageChain, List<SingleMessage> by emptyList(), MessageChainImpl {
     override val size: Int get() = 0
 

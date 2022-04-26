@@ -58,7 +58,7 @@ internal fun Message.contentEqualsStrictImpl(another: Message, ignoreCase: Boole
 
 internal sealed interface MessageChainImpl : MessageChain {
     /**
-     * 去重算法 v1 - 2.11:
+     * 去重算法 v1 - 2.12:
      * 在连接时若只有 0-1 方包含 [ConstrainSingle], 则使用 [CombinedMessage] 优化性能. 否则使用旧版复杂去重算法构造 [LinearMessageChainImpl].
      */
     @MiraiInternalApi

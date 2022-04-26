@@ -290,14 +290,14 @@ public interface Message {
 
     /**
      * @suppress 这是内部 API, 不要在任何情况下调用
-     * @since 2.11
+     * @since 2.12
      */
     @MiraiInternalApi
     public fun <D, R> accept(visitor: MessageVisitor<D, R>, data: D): R = visitor.visitMessage(this, data)
 
     /**
      * @suppress 这是内部 API, 不要在任何情况下调用
-     * @since 2.11
+     * @since 2.12
      */
     @MiraiInternalApi
     public fun <D> acceptChildren(visitor: MessageVisitor<D, *>, data: D) {

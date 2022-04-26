@@ -15,7 +15,7 @@ import net.mamoe.mirai.utils.NotStableForInheritance
 
 /**
  * @suppress 这是内部 API, 请不要调用
- * @since 2.11
+ * @since 2.12
  */
 @MiraiInternalApi
 @NotStableForInheritance
@@ -41,7 +41,7 @@ public interface MessageVisitor<in D, out R> {
     public fun visitAtAll(message: AtAll, data: D): R
 
     @Suppress("DEPRECATION_ERROR")
-    public fun visitVoice(message: Voice, data: D): R
+    public fun visitVoice(message: net.mamoe.mirai.message.data.Voice, data: D): R
     public fun visitAudio(message: Audio, data: D): R
     public fun visitHummerMessage(message: HummerMessage, data: D): R
     public fun visitFlashImage(message: FlashImage, data: D): R
@@ -66,7 +66,7 @@ public interface MessageVisitor<in D, out R> {
 
 /**
  * @suppress 这是内部 API, 请不要调用
- * @since 2.11
+ * @since 2.12
  */
 @MiraiInternalApi
 public abstract class AbstractMessageVisitor<in D, out R> : MessageVisitor<D, R> {
@@ -126,7 +126,7 @@ public abstract class AbstractMessageVisitor<in D, out R> : MessageVisitor<D, R>
     }
 
     @Suppress("DEPRECATION_ERROR")
-    public override fun visitVoice(message: Voice, data: D): R {
+    public override fun visitVoice(message: net.mamoe.mirai.message.data.Voice, data: D): R {
         return visitMessageContent(message, data)
     }
 
@@ -206,7 +206,7 @@ public abstract class AbstractMessageVisitor<in D, out R> : MessageVisitor<D, R>
 
 /**
  * @suppress 这是内部 API, 请不要调用
- * @since 2.11
+ * @since 2.12
  */
 @MiraiInternalApi
 public abstract class RecursiveMessageVisitor<D> : MessageVisitorUnit<D>() {
@@ -220,7 +220,7 @@ public abstract class RecursiveMessageVisitor<D> : MessageVisitorUnit<D>() {
 
 /**
  * @suppress 这是内部 API, 请不要调用
- * @since 2.11
+ * @since 2.12
  */
 @MiraiInternalApi
 public abstract class MessageVisitorUnit<in D> : AbstractMessageVisitor<D, Unit>() {
@@ -229,14 +229,14 @@ public abstract class MessageVisitorUnit<in D> : AbstractMessageVisitor<D, Unit>
 
 /**
  * @suppress 这是内部 API, 请不要调用
- * @since 2.11
+ * @since 2.12
  */
 @MiraiInternalApi
 public fun <R> Message.accept(visitor: MessageVisitor<Unit, R>): R = this.accept(visitor, Unit)
 
 /**
  * @suppress 这是内部 API, 请不要调用
- * @since 2.11
+ * @since 2.12
  */
 @MiraiInternalApi
 public fun Message.acceptChildren(visitor: MessageVisitor<Unit, *>): Unit = this.acceptChildren(visitor, Unit)

@@ -16,8 +16,7 @@ import net.mamoe.mirai.utils.MiraiInternalApi
 
 /**
  * One after one, hierarchically.
- *
- * @since 2.11
+ * @since 2.12
  */
 @MiraiInternalApi
 public class CombinedMessage @MessageChainConstructor constructor(
