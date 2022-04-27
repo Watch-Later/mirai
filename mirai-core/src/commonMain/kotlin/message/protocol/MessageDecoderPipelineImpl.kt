@@ -7,11 +7,8 @@
  * https://github.com/mamoe/mirai/blob/dev/LICENSE
  */
 
-package net.mamoe.mirai.internal.message.protocol.impl
+package net.mamoe.mirai.internal.message.protocol
 
-import net.mamoe.mirai.internal.message.protocol.MessageDecoder
-import net.mamoe.mirai.internal.message.protocol.MessageDecoderContext
-import net.mamoe.mirai.internal.message.protocol.MessageDecoderPipeline
 import net.mamoe.mirai.internal.network.protocol.data.proto.ImMsgBody
 import net.mamoe.mirai.internal.pipeline.AbstractProcessorPipeline
 import net.mamoe.mirai.message.data.Message
@@ -25,12 +22,14 @@ private val defaultTraceLogging: MiraiLogger by lazy {
         .withSwitch(systemProp("mirai.message.decoder.pipeline.log.full", false))
 }
 
+
 internal open class MessageDecoderPipelineImpl :
-    AbstractProcessorPipeline<MessageDecoder, MessageDecoderContext, ImMsgBody.Elem, Message>(defaultTraceLogging),
+    AbstractProcessorPipeline<MessageDecoderProcessor, MessageDecoderContext, ImMsgBody.Elem, Message>(
+        defaultTraceLogging
+    ),
     MessageDecoderPipeline {
 
     inner class MessageDecoderContextImpl(attributes: TypeSafeMap) : MessageDecoderContext, BaseContextImpl(attributes)
 
     override fun createContext(attributes: TypeSafeMap): MessageDecoderContext = MessageDecoderContextImpl(attributes)
 }
-

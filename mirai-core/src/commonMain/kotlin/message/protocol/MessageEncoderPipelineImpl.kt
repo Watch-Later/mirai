@@ -7,11 +7,8 @@
  * https://github.com/mamoe/mirai/blob/dev/LICENSE
  */
 
-package net.mamoe.mirai.internal.message.protocol.impl
+package net.mamoe.mirai.internal.message.protocol
 
-import net.mamoe.mirai.internal.message.protocol.MessageEncoder
-import net.mamoe.mirai.internal.message.protocol.MessageEncoderContext
-import net.mamoe.mirai.internal.message.protocol.MessageEncoderPipeline
 import net.mamoe.mirai.internal.network.protocol.data.proto.ImMsgBody
 import net.mamoe.mirai.internal.pipeline.AbstractProcessorPipeline
 import net.mamoe.mirai.message.data.SingleMessage
@@ -26,7 +23,9 @@ private val defaultTraceLogging: MiraiLogger by lazy {
 }
 
 internal open class MessageEncoderPipelineImpl :
-    AbstractProcessorPipeline<MessageEncoder, MessageEncoderContext, SingleMessage, ImMsgBody.Elem>(defaultTraceLogging),
+    AbstractProcessorPipeline<MessageEncoderProcessor<*>, MessageEncoderContext, SingleMessage, ImMsgBody.Elem>(
+        defaultTraceLogging
+    ),
     MessageEncoderPipeline {
 
     inner class MessageEncoderContextImpl(attributes: TypeSafeMap) : MessageEncoderContext, BaseContextImpl(attributes)
