@@ -32,6 +32,7 @@ internal class QuoteReplyProtocol : MessageProtocol(PRIORITY_METADATA) {
     private class Decoder : MessageDecoder {
         override suspend fun MessageDecoderContext.process(data: ImMsgBody.Elem) {
             if (data.srcMsg == null) return
+            markAsConsumed()
             OfflineMessageSourceImplData(
                 data.srcMsg,
                 attributes[BOT],
@@ -45,6 +46,7 @@ internal class QuoteReplyProtocol : MessageProtocol(PRIORITY_METADATA) {
     private class Encoder : MessageEncoder<QuoteReply> {
         override suspend fun MessageEncoderContext.process(data: QuoteReply) {
             val source = data.source as? MessageSourceInternal ?: return
+            markAsConsumed()
             collect(ImMsgBody.Elem(srcMsg = source.toJceData()))
             if (contact is Group) {
                 if (source is OnlineMessageSource.Incoming.FromGroup) {
