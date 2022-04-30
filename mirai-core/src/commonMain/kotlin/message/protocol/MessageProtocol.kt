@@ -31,8 +31,18 @@ internal abstract class MessageProtocol(
 
     object PriorityComparator : Comparator<MessageProtocol> {
         override fun compare(o1: MessageProtocol, o2: MessageProtocol): Int {
-            return o1.priority.compareTo(o2.priority) // no boxing
+
+            // Do not use o1.compareTo
+            // > Task :mirai-core:checkAndroidApiLevel
+            // > /Users/runner/work/mirai/mirai/mirai-core/build/classes/kotlin/android/main/net/mamoe/mirai/internal/message/protocol/MessageProtocol$PriorityComparator.class
+            //    > Method compare(Lnet/mamoe/mirai/internal/message/protocol/MessageProtocol;Lnet/mamoe/mirai/internal/message/protocol/MessageProtocol;)I
+            //      > Invoke method java/lang/Integer.compareUnsigned(II)I
+            //          Couldn't access java/lang/Integer.compareUnsigned(II)I: java/lang/Integer.compareUnsigned(II)I since api level 26
+
+            return uintCompare(o1.priority.toInt(), o2.priority.toInt())
         }
+
+        private fun uintCompare(v1: Int, v2: Int): Int = (v1 xor Int.MIN_VALUE).compareTo(v2 xor Int.MIN_VALUE)
     }
 }
 
