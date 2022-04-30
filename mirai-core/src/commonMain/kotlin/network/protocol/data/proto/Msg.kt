@@ -937,7 +937,7 @@ internal class ImMsgBody : ProtoBuf {
     @Serializable
     internal class RichText(
         @ProtoNumber(1) @JvmField val attr: Attr? = null,
-        @ProtoNumber(2) @JvmField val elems: MutableList<Elem> = mutableListOf(),
+        @ProtoNumber(2) @JvmField val elems: List<Elem> = listOf(),
         @ProtoNumber(3) @JvmField val notOnlineFile: NotOnlineFile? = null,
         @ProtoNumber(4) @JvmField val ptt: Ptt? = null,
         @ProtoNumber(5) @JvmField val tmpPtt: TmpPtt? = null,
