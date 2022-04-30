@@ -22,7 +22,8 @@ import net.mamoe.mirai.utils.toByteArray
 internal class FaceProtocol : MessageProtocol() {
     override fun ProcessorCollector.collectProcessorsImpl() {
         add(Encoder())
-        add(Decoder())
+        add(Type1Decoder())
+        add(Type2Decoder())
     }
 
     private class Encoder : MessageEncoder<Face> {
@@ -63,7 +64,7 @@ internal class FaceProtocol : MessageProtocol() {
         }
     }
 
-    private class Decoder : MessageDecoder {
+    private class Type1Decoder : MessageDecoder {
         override suspend fun MessageDecoderContext.process(data: ImMsgBody.Elem) {
             val commonElem = data.commonElem ?: return
             if (commonElem.serviceType != 33) return
@@ -74,5 +75,13 @@ internal class FaceProtocol : MessageProtocol() {
             collect(Face(proto.index))
         }
 
+    }
+
+    private class Type2Decoder : MessageDecoder {
+        override suspend fun MessageDecoderContext.process(data: ImMsgBody.Elem) {
+            val face = data.face ?: return
+            markAsConsumed()
+            collect(Face(face.index))
+        }
     }
 }
