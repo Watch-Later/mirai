@@ -12,7 +12,8 @@ package net.mamoe.mirai.internal.testFramework.message.protocol
 import net.mamoe.mirai.internal.message.protocol.MessageDecoder
 import net.mamoe.mirai.internal.message.protocol.MessageDecoderContext
 import net.mamoe.mirai.internal.network.protocol.data.proto.ImMsgBody
-import net.mamoe.mirai.internal.utils.structureToString
+import net.mamoe.mirai.internal.testFramework.codegen.ValueDescAnalyzer
+import net.mamoe.mirai.internal.testFramework.desensitizer.Desensitizer.Companion.generateAndDesensitize
 import net.mamoe.mirai.utils.MiraiLogger
 import net.mamoe.mirai.utils.debug
 
@@ -21,7 +22,7 @@ internal class MessageDecodingRecorder(
 ) : MessageDecoder {
     override suspend fun MessageDecoderContext.process(data: ImMsgBody.Elem) {
         logger.debug {
-            "\n" + data.structureToString()
+            "\n" + ValueDescAnalyzer.generateAndDesensitize(data)
         }
     }
 }
